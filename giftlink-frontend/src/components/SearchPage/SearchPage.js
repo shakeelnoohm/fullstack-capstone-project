@@ -1,65 +1,112 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {urlConfig} from '../../config';
+    .search-bar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
 
-function SearchPage() {
+    .search-bar .form-control {
+        width: 75%; /* Adjust based on your design preference */
+        margin-right: 1rem;
+    }
 
-    //Task 1: Define state variables for the search query, age range, and search results.
-    const categories = ['Living', 'Bedroom', 'Bathroom', 'Kitchen', 'Office'];
-    const conditions = ['New', 'Like New', 'Older'];
+    .search-bar .btn {
+        width: 20%; /* Adjust based on your design preference */
+    }
 
-    useEffect(() => {
-        // fetch all products
-        const fetchProducts = async () => {
-            try {
-                let url = `${urlConfig.backendUrl}/api/gifts`
-                console.log(url)
-                const response = await fetch(url);
-                if (!response.ok) {
-                    //something went wrong
-                    throw new Error(`HTTP error; ${response.status}`)
-                }
-                const data = await response.json();
-                setSearchResults(data);
-            } catch (error) {
-                console.log('Fetch error: ' + error.message);
-            }
-        };
+    .card {
+        /* Use similar styles as in MainPage.css */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
 
-        fetchProducts();
-    }, []);
+    .card-body {
+        padding: 1rem;
+    }
 
+    .card-footer {
+        text-align: right;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid #ddd;
+    }
 
-    // Task 2. Fetch search results from the API based on user inputs.
+    .card-title {
+        font-size: 1.2rem;
+        color: #0056b3;
+    }
 
-    const navigate = useNavigate();
+    .card-text {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
 
-    const goToDetailsPage = (productId) => {
-        // Task 6. Enable navigation to the details page of a selected gift.
-    };
+    .btn-info {
+        color: #fff;
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
 
+    .btn-info:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+    }
 
+    .fas.fa-arrow-right {
+        margin-left: 5px;
+    }
 
+    .card-img-top {
+        width: 100%; /* Full width */
+        height: 180px; /* Fixed height */
+        object-fit: cover; /* Cover the entire area without stretching */
+    }
 
-    return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="filter-section mb-3 p-3 border rounded">
-                        <h5>Filters</h5>
-                        <div className="d-flex flex-column">
-                            {/* Task 3: Dynamically generate category and condition dropdown options.*/}
-                            {/* Task 4: Implement an age range slider and display the selected value. */}
-                        </div>
-                    </div>
-                    {/* Task 7: Add text input field for search criteria*/}
-                    {/* Task 8: Implement search button with onClick event to trigger search:*/}
-                    {/*Task 5: Display search results and handle empty results with a message. */}
-                </div>
-            </div>
-        </div>
-    );
-}
+    .card {
+        transition: box-shadow 0.3s ease-in-out;
+    }
 
-export default SearchPage;
+    .card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-footer {
+        text-align: center;
+        padding: 1rem;
+        border-top: none;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        color: #0056b3;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #009688; /* A shade of teal for a modern look */
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #00796b; /* A darker shade of teal for hover state */
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        .search-bar .form-control,
+        .search-bar .btn {
+            width: 100%; /* Full width for small screens */
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-bar .btn {
+            width: auto; /* Auto width for button to fit content */
+        }
+    }
