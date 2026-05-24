@@ -96,4 +96,33 @@ router.post('/login', async (req, res) => {
       }
 });
 
+// Update user profile
+router.put('/update', async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection("users");
+        const email = req.headers.email;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        const result = await collection.updateOne(
+            { email: email },
+            { $set: { name: req.body.name } }
+        );
+
+        if (result.modifiedCount === 1) {
+            logger.info('User updated successfully');
+            return res.status(200).json({ message: 'User updated successfully' });
+        } else {
+            logger.error('User not found or no changes made');
+            return res.status(404).json({ error: 'User not found or no changes made' });
+        }
+    } catch (e) {
+        logger.error(e);
+        return res.status(500).json({ error: 'Internal server error', details: e.message });
+    }
+});
+
 module.exports = router;

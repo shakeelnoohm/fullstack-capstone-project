@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
         const gifts = await collection.find({}).toArray();
         res.json(gifts);
     } catch (e) {
-        logger.console.error('oops something went wrong', e)
+        logger.error('oops something went wrong', e)
         next(e);
     }
 });
@@ -42,9 +42,10 @@ router.post('/', async (req, res, next) => {
     try {
         const db = await connectToDatabase();
         const collection = db.collection("gifts");
-        const gift = await collection.insertOne(req.body);
+        const result = await collection.insertOne(req.body);
 
-        res.status(201).json(gift.ops[0]);
+        const newGift = { ...req.body, _id: result.insertedId };
+        res.status(201).json(newGift);
     } catch (e) {
         next(e);
     }
